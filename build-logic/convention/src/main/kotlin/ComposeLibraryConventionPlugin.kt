@@ -70,7 +70,8 @@ class ComposeLibraryConventionPlugin : Plugin<Project> {
           // Default namespace - modules MUST override this with their unique namespace
           namespace = defaultNamespace
 
-          compileSdk = libs.findVersion("android-compileSdk").get().toString().toInt()
+          compileSdk = providers.gradleProperty("androidCompileSdk").map(String::toInt)
+            .getOrElse(libs.findVersion("android-compileSdk").get().toString().toInt())
           minSdk = libs.findVersion("android-minSdk").get().toString().toInt()
 
           packaging {
