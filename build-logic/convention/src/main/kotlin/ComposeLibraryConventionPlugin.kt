@@ -4,6 +4,7 @@ import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.maven.MavenPom
+import org.gradle.api.publish.PublishingExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.findByType
@@ -34,11 +35,27 @@ class ComposeLibraryConventionPlugin : Plugin<Project> {
       val defaultNamespace = libs.findVersion("namespace").get().toString()
 
       // Configure Maven Publishing
+      val githubPackagesRepository = providers.gradleProperty("githubPackagesRepository")
       extensions.configure<MavenPublishBaseExtension> {
-        publishToMavenCentral()
-        signAllPublications()
+        if (!githubPackagesRepository.isPresent) {
+          publishToMavenCentral()
+          signAllPublications()
+        }
 
         pom { configurePom(this) }
+      }
+
+      if (githubPackagesRepository.isPresent) {
+        extensions.configure<PublishingExtension> {
+          repositories.maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${githubPackagesRepository.get()}")
+            credentials {
+              username = providers.environmentVariable("GITHUB_ACTOR").orNull
+              password = providers.environmentVariable("GITHUB_TOKEN").orNull
+            }
+          }
+        }
       }
 
       // Set group and version from properties
