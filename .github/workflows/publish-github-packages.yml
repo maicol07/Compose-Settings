@@ -22,9 +22,9 @@ jobs:
           java-version: 17
       - uses: android-actions/setup-android@v3
         with:
-          packages: platform-tools platforms;android-36 build-tools;36.0.0
+          packages: platform-tools platforms;android-37.0
       - name: Compile samples
-        run: ./gradlew :samples:shared:compileKotlinDesktop :samples:shared:compileKotlinJs :samples:shared:compileKotlinIosArm64 :ui-tiles-expressive:compileAndroidMain -PandroidCompileSdk=36 --console=plain
+        run: ./gradlew :samples:shared:compileKotlinDesktop :samples:shared:compileKotlinJs :samples:shared:compileKotlinIosArm64 :samples:androidApp:assembleDebug --console=plain
       - name: Publish library modules
         env:
           GITHUB_ACTOR: ${{ github.actor }}
@@ -38,5 +38,4 @@ jobs:
           -PgithubPackagesRepository=${{ github.repository }}
           -PlibGroup=com.github.maicol07.compose-settings
           -PlibVersion=3.3.0-material13.1
-          -PandroidCompileSdk=36
           --no-configuration-cache --console=plain
