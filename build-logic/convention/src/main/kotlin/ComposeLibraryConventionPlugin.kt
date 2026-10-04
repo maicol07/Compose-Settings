@@ -75,11 +75,13 @@ class ComposeLibraryConventionPlugin : Plugin<Project> {
 
         js(IR) {
           browser()
+          binaries.executable()
         }
 
         @OptIn(ExperimentalWasmDsl::class)
         wasmJs {
           browser()
+          binaries.executable()
         }
 
         sourceSets.apply {

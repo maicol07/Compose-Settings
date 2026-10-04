@@ -1,31 +1,31 @@
 [versions]
 # Kotlin & Compose
-kotlin = "2.3.10"
-compose-plugin = "1.10.1"
-compose = "1.10.1"
+kotlin = "2.4.10"
+compose-plugin = "1.12.0"
+compose = "1.12.0"
 
 # Android Gradle Plugin
-agp = "9.1.0"
+agp = "9.4.0"
 
 # Android SDK
 android-minSdk = "21"
 android-minSdkSample = "26"
-android-compileSdk = "36"
-android-targetSdk = "36"
+android-compileSdk = "37"
+android-targetSdk = "37"
 
 # Project
 namespace = "com.alorma.compose.settings"
 
 # AndroidX
-androidxactivity = "1.12.4"
+androidxactivity = "1.13.0"
 
 # Code Quality
 detekt = "1.23.8"
-dokka = "2.1.0"
+dokka = "2.2.0"
 compose-detekt-rules = "0.0.26"
 
 # Publishing
-mavenPlugin = "0.36.0"
+mavenPlugin = "0.37.0"
 
 # Other Libraries
 compose-material3 = "1.9.0"
